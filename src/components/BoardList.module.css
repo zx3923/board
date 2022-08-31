@@ -1,0 +1,34 @@
+.table {
+    border: 2px solid #afafaf;
+}
+
+.t_head {
+    display: flex;
+    border: 1px solid #afafaf;
+    justify-content: space-between;
+}
+
+.t_head > div {
+}
+
+.body_list {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #afafaf;
+}
+
+.body_list > div {
+}
+
+.body_list > input {
+    border: 1px solid #afafaf;
+}
+
+.btn_box {
+    text-align: center;
+}
+
+.btn_box > button {
+    width: 100px;
+    height: 40px;
+}
