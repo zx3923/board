@@ -2,17 +2,6 @@
   border: 2px solid #afafaf;
 }
 
-.t_head {
-  display: flex;
-  border: 1px solid #afafaf;
-  justify-content: space-between;
-}
-
-.t_head > div {
-  width: calc(100% / 1 / 5);
-  border: 1px solid black;
-}
-
 .body_list {
   display: flex;
   justify-content: space-between;

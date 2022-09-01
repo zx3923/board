@@ -2,22 +2,38 @@ import React, { useState } from "react";
 import styles from "./Write.module.css";
 
 const Write = ({ onInsert }) => {
+  const [titles, setTitles] = useState([]);
+  const [title, setTitle] = useState("");
+
+  const [value, setValue] = useState("");
+
+  const onChange = (e) => {
+    setTitle(e.target.value);
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (title === "") {
+      alert(" 내용이 비었습니다. ");
+      return;
+    }
+    setTitles((currentArray) => [title, ...currentArray]);
+
+    setTitle("");
+  };
+
   return (
     <>
-      <from>
-        <div className={styles.title}>
-          <div>제목</div>
-          <input type="text" />
-        </div>
-        <div className={styles.content}>
-          <div>내용</div>
-          <input type="text" />
-        </div>
-      </from>
-      <div className={styles.btn_box}>
-        <button onClick={onInsert}>작성완료</button>
-        <button>취소</button>
+      <div className={styles.textBox}>
+        <form onSubmit={onSubmit} className={styles.write}>
+          <input type="text" onChange={onChange} value={title} />
+          <button onSubmit={onSubmit}>작성완료</button>
+        </form>
       </div>
+      <ul>
+        {titles.map((title) => (
+          <li>{title}</li>
+        ))}
+      </ul>
     </>
   );
 };
