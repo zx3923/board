@@ -1,27 +1,45 @@
-import BoardList from "./components/BoardList";
+import Main from "./components/Main";
 import Write from "./components/Write";
 import axios, { Axios } from "axios";
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
+import View from "./components/View";
 
 function App() {
-  const onInsert = async () => {
-    await axios({ url: "http://localhost:8000/list/", method: "get" }).then(
-      () => {
-        alert("확인");
-      }
-    );
+  const [titles, setTitles] = useState([]);
+  const [title, setTitle] = useState("");
+
+  const [value, setValue] = useState("");
+
+  const onChange = (e) => {
+    setTitle(e.target.value);
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (title === "") {
+      alert(" 내용이 비었습니다. ");
+      return;
+    }
+    setTitles((currentArray) => [title, ...currentArray]);
+
+    setTitle("");
   };
   return (
     <>
       <Router>
-        <Header></Header>
         <Routes>
-          <Route path="/" element={<BoardList></BoardList>}></Route>
+          <Route path="/" element={<Main titles={titles} />}></Route>
+          <Route path="/view" element={<View />}></Route>
           <Route
             path="/write"
-            element={<Write onInsert={onInsert}></Write>}
+            element={
+              <Write
+                onChange={onChange}
+                onSubmit={onSubmit}
+                title={title}
+                titles={titles}
+              />
+            }
           ></Route>
         </Routes>
       </Router>
