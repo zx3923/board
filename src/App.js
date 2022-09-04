@@ -1,29 +1,56 @@
 import Main from "./components/Main";
 import Write from "./components/Write";
 import axios, { Axios } from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import View from "./components/View";
+import { useRef } from "react";
 
 function App() {
   const [titles, setTitles] = useState([]);
   const [title, setTitle] = useState("");
-
   const [value, setValue] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const onChange = (e) => {
-    setTitle(e.target.value);
+    setValue(e.target.value);
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
-    if (title === "") {
+    if (value === "") {
       alert(" 내용이 비었습니다. ");
       return;
     }
-    setTitles((currentArray) => [title, ...currentArray]);
-
-    setTitle("");
+    setValue("");
+    console.log(value);
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await axios({
+        url: "http://localhost:8000/list",
+        method: "get",
+      });
+      console.log(data.data);
+      setTitles(data.data);
+      setIsLoading(false);
+    };
+    try {
+      getData();
+    } catch (e) {
+      setError(e);
+    }
+  }, [])
+  if (error) {
+    return <>에러: {error.messahe}</>;
+  }
+  if (isLoading) {
+    return <>Loading...</>;
+  }
+
+
   return (
     <>
       <Router>
@@ -38,6 +65,7 @@ function App() {
                 onSubmit={onSubmit}
                 title={title}
                 titles={titles}
+                value={value}
               />
             }
           ></Route>

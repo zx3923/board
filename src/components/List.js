@@ -3,12 +3,14 @@ import Listrescue from "./Listrescue";
 import styles from "./List.module.css";
 
 const List = ({ titles }) => {
-  const book = [
-    { id: 1, title: "제목1" },
-    { id: 2, title: "제목2" },
-    { id: 3, title: "제목3" },
-  ];
-  const booklist = book.map((e) => <Listrescue title={e.title} id={e.id} />);
+
+  const titleslist = titles.map((e) => <Listrescue
+    id={e.id}
+    board_title={e.board_title}
+    board_content={e.board_content}
+    REGISTER_DATE={e.REGISTER_DATE}
+    key={e.id}
+  />);
   return (
     <>
       <h3 className={styles.h3}>
@@ -16,12 +18,8 @@ const List = ({ titles }) => {
         <span>제목</span>
         <span>등록일</span>
       </h3>
-      <div className={styles.booklist}>{booklist}</div>
-      <ul>
-        {titles.map((title) => (
-          <li>{title}</li>
-        ))}
-      </ul>
+      <div className={styles.titleslist}>{titleslist}</div>
+
     </>
   );
 };

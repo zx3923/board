@@ -10,12 +10,6 @@
   align-items: center;
 }
 
-.textBox input {
-  width: 1000px;
-  height: 300px;
-  margin: 0 auto;
-}
-
 .textBox button {
   width: 100px;
 }

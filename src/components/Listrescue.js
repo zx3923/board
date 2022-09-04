@@ -7,10 +7,10 @@ const Listrescue = (props) => {
     <div>
       <div className={styles.text}>
         <span>{props.id}</span>
-        <Link to={"/view/"}>
-          <span> {props.title}</span>
+        <Link to={`/view/${props.id}`}>
+          <span> {props.board_title}</span>
         </Link>
-        <span>(등록일)</span>
+        <span>{props.REGISTER_DATE}</span>
       </div>
     </div>
   );
