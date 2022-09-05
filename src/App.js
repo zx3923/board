@@ -24,7 +24,16 @@ function App() {
       return;
     }
     setValue("");
-    console.log(value);
+    onInsert(value);
+  };
+
+  const onInsert = async (board_content) => {
+    const data = await axios({
+      url: "http://localhost:8000/list",
+      method: "post",
+      data: { board_content },
+    });
+    setTitles(data.data);
   };
 
   useEffect(() => {
@@ -33,7 +42,6 @@ function App() {
         url: "http://localhost:8000/list",
         method: "get",
       });
-      console.log(data.data);
       setTitles(data.data);
       setIsLoading(false);
     };
@@ -42,14 +50,13 @@ function App() {
     } catch (e) {
       setError(e);
     }
-  }, [])
+  }, []);
   if (error) {
     return <>에러: {error.messahe}</>;
   }
   if (isLoading) {
     return <>Loading...</>;
   }
-
 
   return (
     <>
